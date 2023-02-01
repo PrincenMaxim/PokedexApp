@@ -14,7 +14,8 @@ export default {
 </script>
 
 <style>
-html, body {
+html,
+body {
   height: 100vh;
   padding: 0;
   margin: 0;
@@ -23,6 +24,8 @@ html, body {
 @font-face {
   font-family: "SF Pro Display";
   src: local("SF Pro Display"),
-   url('./assets/fonts/sf-pro-text-medium.ttf') format("truetype");
+    url('./assets/fonts/sf-pro-text-medium.ttf') format("truetype");
 }
+
+
 </style>

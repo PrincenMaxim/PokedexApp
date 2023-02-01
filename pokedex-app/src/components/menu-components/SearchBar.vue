@@ -22,7 +22,11 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
+    section {
+        width: 100;
+        height: 36px;
+    }
     .search-bar{
         display: flex;
         flex-direction: row;
@@ -38,6 +42,7 @@ export default {
     
         background: #EFF0F1;
         border-radius: 10px;
+        
     }
 
     .search-bar input {
