@@ -31,23 +31,30 @@ export default {
 </script>
 <style scoped>
 .poke-button {
-    padding-left: 10px;
-    width: 167px;
-    height: 100px;
+    position: relative;
+    padding-left: 2%;
+    width: 45%;
+    height: 100%;
     border-radius: 10px;
     overflow: hidden;
     z-index: 1;
+    padding-top: 10%;
+    padding-bottom: 3%;
 }
 
 h3 {
-    margin-top: 40px;
-    margin-bottom: 0px;
+    position: absolute;
+    top: 20%;
     z-index: 4;
+    font-size: 1.45vw;
+    letter-spacing: 0.01vw;
 }
 
 p {
-    margin-top: 5px;
+    position: absolute;
     z-index: 4;
+    font-size: 1vw;
+    bottom: 0%;
 }
 
 </style>

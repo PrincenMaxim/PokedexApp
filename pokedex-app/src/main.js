@@ -1,4 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import CardBox from "./components/global-components/CardBox.vue";
 
-createApp(App).mount('#app')
+const app = createApp(App);
+
+app.component('card-box', CardBox)
+
+app.mount('#app')
