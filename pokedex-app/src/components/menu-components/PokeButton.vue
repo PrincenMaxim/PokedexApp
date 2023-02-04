@@ -40,6 +40,17 @@ export default {
     z-index: 1;
     padding-top: 10%;
     padding-bottom: 3%;
+    cursor: pointer;
+}
+
+.poke-button:hover {
+    filter: brightness(110%);
+    transition: ease-in-out 0.2s;
+}
+
+.poke-button:active {
+    filter: brightness(120%);
+    transition: 0s;
 }
 
 h3 {
