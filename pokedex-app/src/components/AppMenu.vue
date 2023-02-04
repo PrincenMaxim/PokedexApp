@@ -66,7 +66,7 @@ section h1 {
 
 p {
   font-weight: 100;
-  font-size: 15px;
+  font-size: 1vw;
   letter-spacing: 0.01vw;
 }
 

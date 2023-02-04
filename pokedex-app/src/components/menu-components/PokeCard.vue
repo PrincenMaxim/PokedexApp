@@ -37,7 +37,9 @@ export default {
   
 }
 
-  
+img {
+    height: 7vw;
+}
   
   .poke-info {
     display: flex;
@@ -47,12 +49,14 @@ export default {
   }
   
   .poke-info h3 {
-    
+    font-size: 1.2vw;
     margin-bottom: 0;
+    letter-spacing: 0.01vw;
   }
   .poke-info p {
     margin-top: 0;
     color: #919698;
+    letter-spacing: 0.01vw;
   }
   
   .poke-types {
