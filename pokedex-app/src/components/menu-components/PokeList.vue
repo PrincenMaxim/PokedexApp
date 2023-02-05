@@ -1,16 +1,19 @@
 <template>
   <section>
-    <poke-card v-for="pokemon in allPokemon" :key="pokemon['id']" :pokemon="pokemon"></poke-card>
+    <poke-card v-for="pokemon in allPokemon" :key="pokemon['id']" :pokemon="pokemon" @click="pokecardClick(pokemon)"></poke-card>
   </section>
 </template>
 <script>
 import PokeCard from './PokeCard.vue';
+import { usePokemonStore } from '@/stores/SelectedPokemonStore';
 
 export default {
   components: { PokeCard },
-  
+  emits: ['pokecard-clicked'],
   data() {
-    return {};
+    return{
+      pokemonStore: usePokemonStore()
+    }
   },
   props: {
     allPokemon: Array,
@@ -22,6 +25,9 @@ export default {
         console.log(pokemon);
       });
     },
+    pokecardClick(pokemon) {
+      this.$router.push({path: '/pokeinfo/' + pokemon['id']});
+    }
   },
   mounted() {},
 };

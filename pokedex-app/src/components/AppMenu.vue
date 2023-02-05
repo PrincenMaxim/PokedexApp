@@ -24,6 +24,10 @@ export default {
     PokeButton,
     PokeList,
   },
+  setup() {
+
+  },
+  
   props: {
     allPokemon: Array,
   }

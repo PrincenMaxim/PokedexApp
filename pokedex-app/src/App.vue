@@ -1,6 +1,6 @@
 <template>
   <section>
-    <app-menu :allPokemon="allPokemon"></app-menu>
+    <app-menu v-if="allPokemon" :allPokemon="allPokemon"></app-menu>
     <div class="router-container">
       <router-view></router-view>
     </div>
@@ -9,7 +9,7 @@
 
 <script>
 import AppMenu from "./components/AppMenu.vue";
-import axios from "axios";
+import { usePokemonStore } from "./stores/SelectedPokemonStore";
 
 export default {
   name: "App",
@@ -18,22 +18,17 @@ export default {
   },
   data() {
     return {
-      allPokemon: []
+      allPokemon: [],
+      pokemonStore: usePokemonStore(),
     };
   },
-
   mounted() {
-    axios
-      .get("https://stoplight.io/mocks/appwise-be/pokemon/57519009/pokemon")
-      .then((result) => {
-        result.data.forEach(element => {
-          this.allPokemon.push(element);
-        });
-      });
+    this.pokemonStore.fetchPokemon().then(() => {
+      this.allPokemon = this.pokemonStore.getAllPokemon();
+    });
   },
 };
 </script>
-
 <style>
 html,
 body {
@@ -45,8 +40,7 @@ body {
 
 .router-container {
   width: 70%;
-  background-color: #EFF0F1;
-
+  background-color: #eff0f1;
 }
 
 @font-face {
@@ -55,7 +49,7 @@ body {
     url("./assets/fonts/sf-pro-text-medium.ttf") format("truetype");
 }
 
-section{
+section {
   display: flex;
   flex-direction: row;
 }
