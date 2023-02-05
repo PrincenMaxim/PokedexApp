@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div v-if="selectedPokemon">
+        <div v-if="!pokemonStore.isFetching">
             {{ selectedPokemon }}
         </div>
     </section>
@@ -15,6 +15,7 @@ export default {
         return {
             pokemonStore: usePokemonStore(),
             selectedPokemon: null,
+            isFetching: true
         }
         
     },
@@ -25,10 +26,17 @@ export default {
     watch: {
         $route(){
             this.selectedPokemon = this.pokemonStore.getPokemonById(parseInt(this.$route.params.pokeid));
+        },
+        isFetching(){
+            if(this.isFetching == false){
+                this.selectedPokemon = this.pokemonStore.getPokemonById(parseInt(this.$route.params.pokeid));
+            }
         }
     },
     created(){
-        this.selectedPokemon = this.pokemonStore.getPokemonById(parseInt(this.$route.params.pokeid));
+        this.isFetching = this.pokemonStore.isFetching;
+        
+        
     }
    
 }

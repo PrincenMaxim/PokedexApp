@@ -1,10 +1,15 @@
 <template>
-  <section>
+  <section v-if="!pokemonStore.isFetching">
     <poke-card v-for="pokemon in allPokemon" :key="pokemon['id']" :pokemon="pokemon" @click="pokecardClick(pokemon)"></poke-card>
+  </section>
+  <section v-else>
+    <div class="loading-indicator">
+      <h2>Loading data...</h2>
+    </div>
   </section>
 </template>
 <script>
-import PokeCard from './PokeCard.vue';
+import PokeCard from '../global-components/PokeCard.vue';
 import { usePokemonStore } from '@/stores/SelectedPokemonStore';
 
 export default {
@@ -20,11 +25,6 @@ export default {
   },
   watch: {},
   methods: {
-    listPokemon() {
-      this.allPokemon.forEach((pokemon) => {
-        console.log(pokemon);
-      });
-    },
     pokecardClick(pokemon) {
       this.$router.push({path: '/pokeinfo/' + pokemon['id']});
     }

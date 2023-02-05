@@ -6,17 +6,27 @@ export const usePokemonStore = defineStore("PokemonStore", {
     return {
       selectedPokemon: null,
       allPokemon: null,
+      isFetching: false,
     };
   },
   actions: {
     async fetchPokemon() {
-      try {
-        const response = await axios.get(
-          "https://stoplight.io/mocks/appwise-be/pokemon/57519009/pokemon"
-        );
-        this.allPokemon = response.data;
-      } catch (error) {
-        console.error(error);
+      this.isFetching = true;
+      if (localStorage.getItem("allPokemon") === null) {
+        try {
+          const response = await axios.get(
+            "https://stoplight.io/mocks/appwise-be/pokemon/57519009/pokemon"
+          );
+          this.allPokemon = response.data;
+          localStorage.setItem("allPokemon", JSON.stringify(this.allPokemon));
+          this.isFetching = false;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      else {
+        this.isFetching = false;
+        this.allPokemon = JSON.parse(localStorage.getItem("allPokemon"))
       }
     },
     setSelectedPokemon(pokemon) {
@@ -26,8 +36,8 @@ export const usePokemonStore = defineStore("PokemonStore", {
       return this.allPokemon;
     },
     getPokemonById(id) {
-      if(this.allPokemon) return this.allPokemon.find((pokemon) => pokemon.id === id)
-      
+      if (this.allPokemon)
+        return this.allPokemon.find((pokemon) => pokemon.id === id);
     },
   },
 });
