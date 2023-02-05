@@ -21,7 +21,9 @@ import CardBox from '../global-components/CardBox.vue'
 export default {
   components: { CardBox, PokeType },
     props: {
-        pokemon: Object
+        pokemon: {
+            type: Object
+        }
     }
 }
 </script>

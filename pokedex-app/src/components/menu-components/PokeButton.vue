@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import PokeLogo from './PokeLogo.vue';
+import PokeLogo from '../global-components/PokeLogo.vue';
 
 export default {
     components: {

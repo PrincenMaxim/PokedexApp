@@ -44,12 +44,8 @@ section .menu-section {
 section h1 {
   position: absolute;
   margin: 0 0 0 1%;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 2vw;
   top: 12%;
   left: 5%;
-  letter-spacing: 0.01vw;
   color: #1f2029;
 }
 
@@ -64,21 +60,5 @@ section h1 {
   margin: 0 5% 0 5%;
 }
 
-p {
-  font-weight: 100;
-  font-size: 1vw;
-  letter-spacing: 0.01vw;
-}
 
-h2 {
-  font-weight: 700;
-}
-
-.white-text {
-  color: #ffffff;
-}
-
-.greyed-text {
-  color: rgba(255, 255, 255, 0.5);
-}
 </style>

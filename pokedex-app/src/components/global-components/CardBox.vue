@@ -6,7 +6,11 @@
 <script>
 export default {
   props: {
-    selectable: Boolean
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
   }
 }
 </script>

@@ -33,7 +33,7 @@ export default {
         align-items: center;
         padding: 2% 5%;
         gap: 2%; 
-        max-width: 100%;
+        width: 100%;
         height: fit-content;
         background: #EFF0F1;
         border-radius: 10px;
