@@ -36,6 +36,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "SF Pro Display";
+  overflow: hidden;
 }
 
 .router-container {

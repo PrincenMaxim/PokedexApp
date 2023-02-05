@@ -47,6 +47,7 @@ section {
 
 }
 
+
 section::-webkit-scrollbar {
   width: 0%;
 }

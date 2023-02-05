@@ -5,8 +5,10 @@ export const usePokemonStore = defineStore("PokemonStore", {
   state: () => {
     return {
       selectedPokemon: null,
+      selectedPokemonDetails: null,
       allPokemon: null,
       isFetching: false,
+      isFetchingDetails: false,
     };
   },
   actions: {
@@ -23,10 +25,25 @@ export const usePokemonStore = defineStore("PokemonStore", {
         } catch (error) {
           console.error(error);
         }
-      }
-      else {
+      } else {
         this.isFetching = false;
-        this.allPokemon = JSON.parse(localStorage.getItem("allPokemon"))
+        this.allPokemon = JSON.parse(localStorage.getItem("allPokemon"));
+      }
+    },
+    async fetchPokemonDetails() {
+      this.isFetchingDetails = true;
+      try {
+        const response = await axios.get(
+          "https://pokeapi.co/api/v2/pokemon/" + this.selectedPokemon["id"]
+        );
+        this.selectedPokemonDetails = response.data;
+        localStorage.setItem(
+          "selectedPokemonDetails",
+          JSON.stringify(this.selectedPokemonDetails)
+        );
+        this.isFetchingDetails = false;
+      } catch (error) {
+        console.error(error);
       }
     },
     setSelectedPokemon(pokemon) {
@@ -34,6 +51,9 @@ export const usePokemonStore = defineStore("PokemonStore", {
     },
     getAllPokemon() {
       return this.allPokemon;
+    },
+    getSelectedPokemonDetails() {
+      return this.selectedPokemonDetails;
     },
     getPokemonById(id) {
       if (this.allPokemon)

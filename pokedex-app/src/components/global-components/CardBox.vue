@@ -21,6 +21,7 @@ div {
   border-radius: 10px;
   width: 100%;
   margin: 1% 0 1% 0;
+  height: 100%;
 }
 
 
