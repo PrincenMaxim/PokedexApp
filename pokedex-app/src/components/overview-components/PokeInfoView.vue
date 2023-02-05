@@ -1,5 +1,8 @@
 <template>
-    <section v-if="selectedPokemon">
+    <section>
+        <div v-if="selectedPokemon">
+            {{ selectedPokemon }}
+        </div>
     </section>
 </template>
 

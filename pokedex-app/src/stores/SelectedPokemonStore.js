@@ -26,7 +26,8 @@ export const usePokemonStore = defineStore("PokemonStore", {
       return this.allPokemon;
     },
     getPokemonById(id) {
-      return this.allPokemon.find((pokemon) => pokemon.id === id)
+      if(this.allPokemon) return this.allPokemon.find((pokemon) => pokemon.id === id)
+      
     },
   },
 });
