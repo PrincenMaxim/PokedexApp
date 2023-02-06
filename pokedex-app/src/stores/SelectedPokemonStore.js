@@ -13,7 +13,8 @@ export const usePokemonStore = defineStore("PokemonStore", {
       isFetchingDetails: false,
       isFetchingSpecies: false,
       isFetchingEvoluton: false,
-      favoritePokemon: []
+      favoritePokemon: [],
+      teamPokemon: []
     };
   },
   actions: {
@@ -123,6 +124,34 @@ export const usePokemonStore = defineStore("PokemonStore", {
     },
     isPokemonFavorite(pokemon) {
       return this.favoritePokemon.some(p => p.id === pokemon.id);
+    },
+    addToTeam(pokemon) {
+      this.teamPokemon.push(pokemon);
+      this.updateTeamPokemon();
+    },
+    removeFromTeam(pokemon) {
+      const index = this.teamPokemon.findIndex(p => p.id === pokemon.id);
+       if (index !== -1) {
+        this.teamPokemon.splice(index, 1);
+       } 
+       this.updateTeamPokemon();
+    },
+    getTeamPokemon() {
+      return this.favoritePokemon;
+    },
+    updateTeamPokemon(){
+      localStorage.setItem(
+        "teamPokemon",
+        JSON.stringify(this.favoritePokemon)
+      );
+    },
+    initiateTeamPokemon(){
+      if (localStorage.getItem("teamPokemon") !== null){
+        this.teamPokemon = JSON.parse(localStorage.getItem("teamPokemon"));
+      }
+    },
+    isPokemonTeam(pokemon) {
+      return this.teamPokemon.some(p => p.id === pokemon.id);
     }
   },
 });

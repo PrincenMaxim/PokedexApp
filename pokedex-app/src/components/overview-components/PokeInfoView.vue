@@ -1,8 +1,10 @@
 <template>
   <section>
-    <div class="icon-container" @click="toggleFavorite">
-      <font-awesome-icon v-if="!isFavorite" :icon="['far', 'star']" style="font-size: 1.5vw;"/>
-      <font-awesome-icon v-if="isFavorite" :icon="['fas', 'star']" style="font-size: 1.5vw;"/>
+    <div class="icon-container" >
+      <!-- <font-awesome-icon :icon="['fas', 'user']" style="font-size: 1.5vw;" /> -->
+      <font-awesome-icon :icon="['far', 'user']" style="font-size: 1.5vw;" />
+      <font-awesome-icon v-if="!isFavorite" :icon="['far', 'star']" style="font-size: 1.5vw;" @click="toggleFavorite"/>
+      <font-awesome-icon v-if="isFavorite" :icon="['fas', 'star']" style="font-size: 1.5vw;" @click="toggleFavorite"/>
     </div>
     
     <div
@@ -39,7 +41,9 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
+library.add(faUser)
 library.add(faStar);
 library.add(fas, far);
 export default {
@@ -173,6 +177,13 @@ section {
   width: 100%;
 }
 
+.fa-user {
+  color: #FFFFFF;
+}
+
+.fa-user-o {
+  color: #FFFFFF;
+}
 .fa-star {
   color: #FFFFFF;
 }
@@ -187,9 +198,11 @@ section {
   z-index: 4;
   top: 2%;
   right: 1%;
+  width: 4%;
   
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   cursor: pointer;
 
 }

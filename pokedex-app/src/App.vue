@@ -1,6 +1,6 @@
 <template>
   <section>
-    <app-menu v-if="allPokemon" :allPokemon="allPokemon" :favoritePokemon="favoritePokemon"></app-menu>
+    <app-menu v-if="allPokemon" :allPokemon="allPokemon" :favoritePokemon="favoritePokemon" :teamPokemon="teamPokemon"></app-menu>
     <div class="router-container">
       <router-view></router-view>
     </div>
@@ -20,6 +20,7 @@ export default {
     return {
       allPokemon: [],
       favoritePokemon: [],
+      teamPokemon: [],
       pokemonStore: usePokemonStore(),
     };
   },
@@ -30,7 +31,9 @@ export default {
   },
   created(){
     this.pokemonStore.initiateFavoritePokemon();
+    this.pokemonStore.initiateTeamPokemon();
     this.favoritePokemon = this.pokemonStore.getFavoritePokemon();
+    this.teamPokemon = this.pokemonStore.getTeamPokemon();
   }
 };
 </script>

@@ -4,7 +4,7 @@
     <h1>Pokedex</h1>
     <search-bar></search-bar>
     <div class="pokebutton-container">
-      <poke-button :colorFrom="'#46469C'" :colorTo="'#7E32E0'" :pokemons="0">
+      <poke-button :colorFrom="'#46469C'" :colorTo="'#7E32E0'" :pokemons="this.teamPokemon.length" @click="changeList('team')">
         <template #title> Mijn team </template></poke-button>
       <poke-button :colorFrom="'#65CB9A'" :colorTo="'#15D0DC'" :pokemons="this.favoritePokemon.length" @click="changeList('favorite')">
         <template #title> Favorieten </template>
@@ -44,7 +44,8 @@ export default {
   
   props: {
     allPokemon: Array,
-    favoritePokemon: Array
+    favoritePokemon: Array,
+    teamPokemon: Array
   },
   computed: {
     listToShow(){
@@ -53,7 +54,7 @@ export default {
       }
       else if(this.showList === 'team'){
         //add team prop
-        return this.allPokemon;
+        return this.teamPokemon;
       }
       else {
         return this.allPokemon;
