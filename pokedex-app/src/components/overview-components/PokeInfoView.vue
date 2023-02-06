@@ -76,7 +76,6 @@ export default {
           this.pokemonStore.getSelectedPokemonDetails();
           this.isFavorite = this.pokemonStore.isPokemonFavorite(this.selectedPokemon);
           this.isTeam = this.pokemonStore.isPokemonTeam(this.selectedPokemon);
-          console.log(this.isTeam, this.isFavorite)
         this.setStatistics();
       });
       this.pokemonStore
@@ -147,7 +146,6 @@ export default {
       this.isFavorite = this.pokemonStore.isPokemonFavorite(this.selectedPokemon);
     },
     toggleTeam(){
-      console.log('isteam', this.isTeam)
       if(this.isTeam) {
         
         this.pokemonStore.removeFromTeam(this.selectedPokemon);

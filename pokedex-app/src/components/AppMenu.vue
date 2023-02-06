@@ -4,9 +4,9 @@
     <h1>Pokedex</h1>
     <search-bar></search-bar>
     <div class="pokebutton-container">
-      <poke-button :colorFrom="'#46469C'" :colorTo="'#7E32E0'" :pokemons="this.teamPokemon.length" @click="changeList('team')">
+      <poke-button :colorFrom="'#46469C'" :colorTo="'#7E32E0'" :isActive="showList === 'team'" :pokemons="this.teamPokemon.length" @click="changeList('team')">
         <template #title> Mijn team </template></poke-button>
-      <poke-button :colorFrom="'#65CB9A'" :colorTo="'#15D0DC'" :pokemons="this.favoritePokemon.length" @click="changeList('favorite')">
+      <poke-button :colorFrom="'#65CB9A'" :colorTo="'#15D0DC'" :isActive="showList === 'favorite'" :pokemons="this.favoritePokemon.length" @click="changeList('favorite')">
         <template #title> Favorieten </template>
       </poke-button>
     </div>

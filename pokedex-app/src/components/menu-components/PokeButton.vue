@@ -1,6 +1,6 @@
 <template>
     
-    <div class="poke-button" :style="{ background: backgroundGradient }">
+    <div class="poke-button" :style="{ background: backgroundGradient, filter: activeStyling}">
         <poke-logo></poke-logo>
         <h3 class="white-text">
             <slot name="title"></slot>
@@ -20,11 +20,15 @@ export default {
     props: {
         pokemons: Number,
         colorFrom: String,
-        colorTo: String
+        colorTo: String,
+        isActive: Boolean
     },
     computed: {
         backgroundGradient() {
             return 'linear-gradient(109.73deg, ' + this.colorFrom + ' 0%, ' + this.colorTo + ' 100%)';
+        },
+        activeStyling() {
+            return this.isActive ? 'brightness(120%)' : 'brightness(100%)';
         }
     }
 }
