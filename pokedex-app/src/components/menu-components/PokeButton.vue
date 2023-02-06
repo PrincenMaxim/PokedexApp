@@ -28,7 +28,7 @@ export default {
             return 'linear-gradient(109.73deg, ' + this.colorFrom + ' 0%, ' + this.colorTo + ' 100%)';
         },
         activeStyling() {
-            return this.isActive ? 'brightness(120%)' : 'brightness(100%)';
+            return this.isActive ? 'brightness(120%)' : '';
         }
     }
 }
