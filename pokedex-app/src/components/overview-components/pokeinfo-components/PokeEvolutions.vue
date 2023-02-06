@@ -2,7 +2,10 @@
   <section>
     <h1>EVOLUTIE</h1>
     <div class="evolutions-container" v-if="pokemonChain">
-        <poke-card v-for="pokemon in pokemonChain" :key="pokemon.id" :pokemon="pokemon"></poke-card>
+        <div class="card-box">
+            <poke-card v-for="pokemon in pokemonChain" :key="pokemon.id" :pokemon="pokemon"></poke-card>
+        </div>
+        
     </div>
   </section>
 </template>
@@ -24,7 +27,7 @@ export default {
 section {
   position: absolute;
   top: 55%;
-  height: 10%;
+  height: 30%;
 }
 h1 {
   font-size: 1vw;
@@ -36,8 +39,12 @@ h1 {
 
 .evolutions-container {
   top: 10%;
-  height: 10%;
+  height: 15%;
   position: absolute;
   width: 100%;
+}
+
+.card-box{
+    height: 80%;
 }
 </style>

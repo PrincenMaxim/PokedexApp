@@ -175,7 +175,7 @@ img {
 .right-info-container {
   height: 85%;
   width: 40%;
-  top: 10%;
+  top: 0%;
   right: 5%;
   bottom: 20%;
   position: absolute;
