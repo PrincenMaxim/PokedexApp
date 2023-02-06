@@ -6,17 +6,18 @@
     <div class="pokebutton-container">
       <poke-button :colorFrom="'#46469C'" :colorTo="'#7E32E0'" :pokemons="0">
         <template #title> Mijn team </template></poke-button>
-      <poke-button :colorFrom="'#65CB9A'" :colorTo="'#15D0DC'" :pokemons="0">
+      <poke-button :colorFrom="'#65CB9A'" :colorTo="'#15D0DC'" :pokemons="this.favoritePokemon.length" @click="changeList('favorite')">
         <template #title> Favorieten </template>
       </poke-button>
     </div>
-    <poke-list :allPokemon="allPokemon"></poke-list>
+    <poke-list :allPokemon="listToShow"></poke-list>
   </section>
 </template>
 <script>
 import SearchBar from "./menu-components/SearchBar.vue";
 import PokeButton from "./menu-components/PokeButton.vue";
 import PokeList from './menu-components/PokeList.vue';
+import { usePokemonStore } from '@/stores/SelectedPokemonStore';
 
 export default {
   components: {
@@ -24,13 +25,42 @@ export default {
     PokeButton,
     PokeList,
   },
-  setup() {
-
+  data() {
+    return {
+      pokemonStore: usePokemonStore(),
+      showList: 'all'
+    }
+  },
+  methods: {
+    changeList(to){
+      if(this.showList === to){
+        this.showList = 'all';
+      }
+      else {
+        this.showList = to;
+      }
+    }
   },
   
   props: {
     allPokemon: Array,
+    favoritePokemon: Array
+  },
+  computed: {
+    listToShow(){
+      if(this.showList === 'favorite'){
+        return this.favoritePokemon;
+      }
+      else if(this.showList === 'team'){
+        //add team prop
+        return this.allPokemon;
+      }
+      else {
+        return this.allPokemon;
+      }
+    }
   }
+
 };
 </script>
 <style>

@@ -17,7 +17,8 @@ export default {
   emits: ['pokecard-clicked'],
   data() {
     return{
-      pokemonStore: usePokemonStore()
+      pokemonStore: usePokemonStore(),
+      
     }
   },
   props: {
@@ -25,7 +26,9 @@ export default {
   },
   watch: {},
   
-  mounted() {},
+  mounted() {
+    
+  },
 };
 </script>
 <style scoped>

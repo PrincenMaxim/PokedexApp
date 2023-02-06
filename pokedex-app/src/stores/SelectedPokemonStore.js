@@ -97,7 +97,6 @@ export const usePokemonStore = defineStore("PokemonStore", {
         return this.allPokemon.find((pokemon) => pokemon.id === id);
     },
     addToFavorites(pokemon) {
-      console.log(pokemon)
       this.favoritePokemon.push(pokemon);
       this.updateFavoritePokemon();
     },
@@ -116,7 +115,6 @@ export const usePokemonStore = defineStore("PokemonStore", {
         "favoritePokemon",
         JSON.stringify(this.favoritePokemon)
       );
-      console.log(this.favoritePokemon);
     },
     initiateFavoritePokemon(){
       if (localStorage.getItem("favoritePokemon") !== null){

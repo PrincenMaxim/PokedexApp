@@ -70,7 +70,6 @@ export default {
         this.selectedPokemonDetails =
           this.pokemonStore.getSelectedPokemonDetails();
           this.isFavorite = this.pokemonStore.isPokemonFavorite(this.selectedPokemon);
-          console.log(this.isFavorite)
         this.setStatistics();
       });
       this.pokemonStore
@@ -139,7 +138,6 @@ export default {
         this.pokemonStore.addToFavorites(this.selectedPokemon);
       } 
       this.isFavorite = this.pokemonStore.isPokemonFavorite(this.selectedPokemon);
-      console.log(this.isFavorite);
     }
   },
   watch: {
