@@ -1,8 +1,8 @@
 <template>
   <section>
     <div class="icon-container" >
-      <!-- <font-awesome-icon :icon="['fas', 'user']" style="font-size: 1.5vw;" /> -->
-      <font-awesome-icon :icon="['far', 'user']" style="font-size: 1.5vw;" />
+      <font-awesome-icon v-if="!isTeam" :icon="['far', 'user']" style="font-size: 1.5vw;" @click="toggleTeam"/>
+      <font-awesome-icon v-if="isTeam" :icon="['fas', 'user']" style="font-size: 1.5vw;" @click="toggleTeam"/>
       <font-awesome-icon v-if="!isFavorite" :icon="['far', 'star']" style="font-size: 1.5vw;" @click="toggleFavorite"/>
       <font-awesome-icon v-if="isFavorite" :icon="['fas', 'star']" style="font-size: 1.5vw;" @click="toggleFavorite"/>
     </div>
@@ -60,6 +60,7 @@ export default {
       selectedStatistics: null,
       chainPokemonInfo: null,
       isFavorite: null,
+      isTeam: null,
     };
   },
 
@@ -74,6 +75,8 @@ export default {
         this.selectedPokemonDetails =
           this.pokemonStore.getSelectedPokemonDetails();
           this.isFavorite = this.pokemonStore.isPokemonFavorite(this.selectedPokemon);
+          this.isTeam = this.pokemonStore.isPokemonTeam(this.selectedPokemon);
+          console.log(this.isTeam, this.isFavorite)
         this.setStatistics();
       });
       this.pokemonStore
@@ -142,6 +145,20 @@ export default {
         this.pokemonStore.addToFavorites(this.selectedPokemon);
       } 
       this.isFavorite = this.pokemonStore.isPokemonFavorite(this.selectedPokemon);
+    },
+    toggleTeam(){
+      console.log('isteam', this.isTeam)
+      if(this.isTeam) {
+        
+        this.pokemonStore.removeFromTeam(this.selectedPokemon);
+      }
+      else {
+        if(this.pokemonStore.getTeamPokemon().length < 6){
+          this.pokemonStore.addToTeam(this.selectedPokemon);
+        }
+        else alert('Oops, je team is vol! Verwijder een pokemon om deze toe te voegen.')
+      } 
+      this.isTeam = this.pokemonStore.isPokemonTeam(this.selectedPokemon);
     }
   },
   watch: {

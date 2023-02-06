@@ -137,12 +137,12 @@ export const usePokemonStore = defineStore("PokemonStore", {
        this.updateTeamPokemon();
     },
     getTeamPokemon() {
-      return this.favoritePokemon;
+      return this.teamPokemon;
     },
     updateTeamPokemon(){
       localStorage.setItem(
         "teamPokemon",
-        JSON.stringify(this.favoritePokemon)
+        JSON.stringify(this.teamPokemon)
       );
     },
     initiateTeamPokemon(){
