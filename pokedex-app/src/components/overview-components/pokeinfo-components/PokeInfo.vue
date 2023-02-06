@@ -16,15 +16,15 @@
           </li>
           <li>
             <p class="parameter">Nummer</p>
-            <p>{{ id }}</p>
+            <p>{{ transformedId }}</p>
           </li>
           <li>
             <p class="parameter">Gewicht</p>
-            <p>{{ weight }} kg</p>
+            <p>{{ transformedWeight }} kg</p>
           </li>
           <li>
             <p class="parameter">Hoogte</p>
-            <p>{{ height }}m</p>
+            <p>{{ transformedHeight }}m</p>
           </li>
         </ul>
       </card-box>
@@ -45,19 +45,17 @@ export default {
   computed: {
     transformedId() {
       const id = this.id;
-      if (id.length < 10) {
+      if (id < 10) {
         return "00" + id;
-      } else if (id.length < 100) {
+      } else if (id < 100) {
         return "0" + id;
       } else return id;
     },
     transformedWeight() {
-      const weight = this.weight;
-      return weight.slice(0, weight.length - 1) + "." + weight.slice(-1);
+      return this.weight/10;
     },
     transformedHeight() {
-      const height = this.height;
-      return height.slice(0, height.length - 1) + "." + height.slice(-1);
+      return this.height/10;
     },
   },
 };
