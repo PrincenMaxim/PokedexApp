@@ -74,8 +74,9 @@ section {
   position: absolute;
   bottom: 5%;
   width: 100%;
-  height: fit-content;
+  height: 30%;
   top: 55%;
+  
 }
 
 h1 {
@@ -100,7 +101,9 @@ h1 {
 .content {
   display: flex;
   flex-direction: column;
+  justify-items: flex-start;
   padding: 0 0 0 5%;
+
 }
 
 img {
