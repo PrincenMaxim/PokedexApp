@@ -1,5 +1,10 @@
 <template>
   <section>
+    <div class="icon-container" @click="toggleFavorite">
+      <font-awesome-icon v-if="!isFavorite" :icon="['far', 'star']" style="font-size: 1.5vw;"/>
+      <font-awesome-icon v-if="isFavorite" :icon="['fas', 'star']" style="font-size: 1.5vw;"/>
+    </div>
+    
     <div
       v-if="!pokemonStore.isFetching && selectedPokemon"
       :style="{ backgroundColor: styleColor }"
@@ -29,9 +34,16 @@ import { typeColor } from "@/typeColor.js";
 import PokeInfo from "./pokeinfo-components/PokeInfo.vue";
 import PokeStatistics from "./pokeinfo-components/PokeStatistics.vue";
 import PokeEvolutions from "./pokeinfo-components/PokeEvolutions.vue";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
+library.add(faStar);
+library.add(fas, far);
 export default {
-  components: { PokeInfo, PokeStatistics, PokeEvolutions },
+  components: { PokeInfo, PokeStatistics, PokeEvolutions, FontAwesomeIcon },
   data() {
     return {
       pokemonStore: usePokemonStore(),
@@ -43,6 +55,7 @@ export default {
       primaryType: null,
       selectedStatistics: null,
       chainPokemonInfo: null,
+      isFavorite: null,
     };
   },
 
@@ -56,6 +69,8 @@ export default {
       this.pokemonStore.fetchPokemonDetails().then(() => {
         this.selectedPokemonDetails =
           this.pokemonStore.getSelectedPokemonDetails();
+          this.isFavorite = this.pokemonStore.isPokemonFavorite(this.selectedPokemon);
+          console.log(this.isFavorite)
         this.setStatistics();
       });
       this.pokemonStore
@@ -113,9 +128,18 @@ export default {
     getEvolutions(evolution, allEvolutions){
       allEvolutions.push(evolution['0'].species);
       if(evolution['0'].evolves_to.length > 0){
-        console.log(evolution['0'].evolves_to)
         this.getEvolutions(evolution['0'].evolves_to, allEvolutions);
       }
+    },
+    toggleFavorite(){
+      if(this.isFavorite) {
+        this.pokemonStore.removeFromFavorites(this.selectedPokemon);
+      }
+      else {
+        this.pokemonStore.addToFavorites(this.selectedPokemon);
+      } 
+      this.isFavorite = this.pokemonStore.isPokemonFavorite(this.selectedPokemon);
+      console.log(this.isFavorite);
     }
   },
   watch: {
@@ -149,6 +173,27 @@ export default {
 section {
   height: 100vh;
   width: 100%;
+}
+
+.fa-star {
+  color: #FFFFFF;
+}
+
+.fa-star-o {
+  color: #FFFFFF;
+}
+
+
+.icon-container{
+  position: absolute;
+  z-index: 4;
+  top: 2%;
+  right: 1%;
+  
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+
 }
 .pokeinfo-container {
   filter: brightness(110%);

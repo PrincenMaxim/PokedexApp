@@ -26,6 +26,7 @@ export default {
     this.pokemonStore.fetchPokemon().then(() => {
       this.allPokemon = this.pokemonStore.getAllPokemon();
     });
+    this.pokemonStore.initiateFavoritePokemon();
   },
 };
 </script>

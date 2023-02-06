@@ -17,9 +17,6 @@ export default {
     props: {
         pokemonChain: Array
     },
-    mounted(){
-        
-    },
 }
 </script>
 

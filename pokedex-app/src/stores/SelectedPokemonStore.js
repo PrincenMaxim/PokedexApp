@@ -12,7 +12,8 @@ export const usePokemonStore = defineStore("PokemonStore", {
       isFetching: false,
       isFetchingDetails: false,
       isFetchingSpecies: false,
-      isFetchingEvoluton: false
+      isFetchingEvoluton: false,
+      favoritePokemon: []
     };
   },
   actions: {
@@ -95,5 +96,35 @@ export const usePokemonStore = defineStore("PokemonStore", {
       if (this.allPokemon)
         return this.allPokemon.find((pokemon) => pokemon.id === id);
     },
+    addToFavorites(pokemon) {
+      console.log(pokemon)
+      this.favoritePokemon.push(pokemon);
+      this.updateFavoritePokemon();
+    },
+    removeFromFavorites(pokemon) {
+      const index = this.favoritePokemon.findIndex(p => p.id === pokemon.id);
+       if (index !== -1) {
+        this.favoritePokemon.splice(index, 1);
+       } 
+       this.updateFavoritePokemon();
+    },
+    getFavoritePokemon() {
+      return this.favoritePokemon;
+    },
+    updateFavoritePokemon(){
+      localStorage.setItem(
+        "favoritePokemon",
+        JSON.stringify(this.favoritePokemon)
+      );
+      console.log(this.favoritePokemon);
+    },
+    initiateFavoritePokemon(){
+      if (localStorage.getItem("favoritePokemon") !== null){
+        this.favoritePokemon = JSON.parse(localStorage.getItem("favoritePokemon"));
+      }
+    },
+    isPokemonFavorite(pokemon) {
+      return this.favoritePokemon.some(p => p.id === pokemon.id);
+    }
   },
 });
