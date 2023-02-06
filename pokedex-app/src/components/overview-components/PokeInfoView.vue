@@ -3,11 +3,17 @@
     <div
       v-if="!pokemonStore.isFetching && selectedPokemon"
       :style="{ backgroundColor: styleColor }"
-      class="pokeinfo-container">
+      class="pokeinfo-container"
+    >
       <h1>{{ selectedPokemon["name"] }}</h1>
       <div class="left-info-container" v-if="selectedPokemonDetails">
-        <img :src="selectedPokemon.sprites.front_default"/>
-        <poke-info :id="selectedPokemonDetails.id" :types="selectedPokemonDetails.types" :height="selectedPokemonDetails.height" :weight="selectedPokemonDetails.weight"></poke-info>
+        <poke-info
+          :images="selectedPokemon.sprites"
+          :id="selectedPokemonDetails.id"
+          :types="selectedPokemonDetails.types"
+          :height="selectedPokemonDetails.height"
+          :weight="selectedPokemonDetails.weight"
+        ></poke-info>
       </div>
     </div>
   </section>
@@ -16,7 +22,7 @@
 <script>
 import { usePokemonStore } from "@/stores/SelectedPokemonStore";
 import { typeColor } from "@/typeColor.js";
-import PokeInfo from './pokeinfo-components/PokeInfo.vue';
+import PokeInfo from "./pokeinfo-components/PokeInfo.vue";
 
 export default {
   components: { PokeInfo },
@@ -32,25 +38,22 @@ export default {
   },
 
   methods: {
-    loadData(){
-        this.selectedPokemon = this.pokemonStore.getPokemonById(
+    loadData() {
+      this.selectedPokemon = this.pokemonStore.getPokemonById(
         parseInt(this.$route.params.pokeid)
-        
       );
       this.primaryType = this.selectedPokemon.types[0].type.name;
       this.pokemonStore.selectedPokemon = this.selectedPokemon;
-      console.log(this.pokemonStore.selectedPokemon)
-      this.pokemonStore.fetchPokemonDetails().then(
-        () => {
-            this.selectedPokemonDetails = this.pokemonStore.getSelectedPokemonDetails();
-        }
-      )
-      
-    }
+      console.log(this.pokemonStore.selectedPokemon);
+      this.pokemonStore.fetchPokemonDetails().then(() => {
+        this.selectedPokemonDetails =
+          this.pokemonStore.getSelectedPokemonDetails();
+      });
+    },
   },
   watch: {
     $route() {
-        this.loadData();
+      this.loadData();
     },
     isFetching() {
       if (this.isFetching == false) {
@@ -58,10 +61,10 @@ export default {
       }
     },
     isFetchingDetails() {
-        if (this.isFetchingDetails == false) {
+      if (this.isFetchingDetails == false) {
         this.loadData();
       }
-    }
+    },
   },
   computed: {
     styleColor() {
@@ -77,7 +80,7 @@ export default {
 
 <style scoped>
 section {
-  height: 100%;
+  height: 100vh;
   width: 100%;
 }
 .pokeinfo-container {
@@ -87,20 +90,21 @@ section {
   width: 100%;
   display: flex;
   flex-direction: row;
-  
 }
 
-img{
-  top: 5%;
-  width: 100%;
+img {
+  top: 15%;
+  width: 1vw;
   position: absolute;
 }
 
-.left-info-container{
-    height: 70%;
-    width: 40%;
-    margin: 10% 5% 5% 10%;
-    position: relative;
+.left-info-container {
+  height: 80%;
+  width: 40%;
+  top: 10%;
+  left: 5%;
+  bottom: 20%;
+  position: absolute;
 }
 
 h1 {
