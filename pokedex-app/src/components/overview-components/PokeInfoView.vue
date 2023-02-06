@@ -15,6 +15,10 @@
           :weight="selectedPokemonDetails.weight"
         ></poke-info>
       </div>
+      <div class="right-info-container" v-if="selectedPokemonDetails">
+        <poke-statistics :statistics="selectedStatistics"></poke-statistics>
+        <poke-evolutions></poke-evolutions>
+      </div>
     </div>
   </section>
 </template>
@@ -23,9 +27,11 @@
 import { usePokemonStore } from "@/stores/SelectedPokemonStore";
 import { typeColor } from "@/typeColor.js";
 import PokeInfo from "./pokeinfo-components/PokeInfo.vue";
+import PokeStatistics from "./pokeinfo-components/PokeStatistics.vue";
+import PokeEvolutions from "./pokeinfo-components/PokeEvolutions.vue";
 
 export default {
-  components: { PokeInfo },
+  components: { PokeInfo, PokeStatistics, PokeEvolutions },
   data() {
     return {
       pokemonStore: usePokemonStore(),
@@ -34,6 +40,7 @@ export default {
       isFetching: true,
       isFetchingDetails: true,
       primaryType: null,
+      selectedStatistics: null,
     };
   },
 
@@ -48,7 +55,29 @@ export default {
       this.pokemonStore.fetchPokemonDetails().then(() => {
         this.selectedPokemonDetails =
           this.pokemonStore.getSelectedPokemonDetails();
+        this.setStatistics();
       });
+    },
+    setStatistics() {
+      let tempStatistics = [
+        { name: "HP", value: null, id: "hp" },
+        { name: "Attack", value: null, id: "attack" },
+        { name: "Defense", value: null, id: "defense" },
+        { name: "Sp. Attack", value: null, id:"special-attack" },
+        { name: "Sp. Defense", value: null, id:"special-defense" },
+        { name: "Speed", value: null, id: "speed" },
+      ];
+      let selectedStatistics = this.selectedPokemonDetails.stats;
+      selectedStatistics.forEach((stat) => {
+        let tempStat = tempStatistics.find(
+          (tempStat) => tempStat.id === stat.stat.name
+        );
+        if (tempStat) {
+          tempStat.value = stat.base_stat;
+        }
+      });
+      this.selectedStatistics = tempStatistics;
+      console.log(this.selectedStatistics);
     },
   },
   watch: {
@@ -93,18 +122,26 @@ section {
 }
 
 img {
-  top: 15%;
-  width: 1vw;
-  position: absolute;
+  widows: 2px;
 }
 
 .left-info-container {
-  height: 80%;
+  height: 60%;
+  width: 40%;
+  top: 20%;
+  left: 5%;
+  bottom: 30%;
+  position: absolute;
+}
+
+.right-info-container {
+  height: 85%;
   width: 40%;
   top: 10%;
-  left: 5%;
+  right: 5%;
   bottom: 20%;
   position: absolute;
+  border: 2px solid red;
 }
 
 h1 {

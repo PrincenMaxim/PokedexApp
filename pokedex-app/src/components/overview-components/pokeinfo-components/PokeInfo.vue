@@ -1,6 +1,6 @@
 <template>
   <section>
-    <img :src="images.front_default" />
+    <img v-if="images" :src="images.front_default" />
     <h1>INFO</h1>
     <div class="info-container">
       <card-box>
@@ -38,7 +38,7 @@ import PokeType from "@/components/global-components/PokeType.vue";
 export default {
   components: { CardBox, PokeType },
   props: {
-    images: Array,
+    images: Object,
     types: Array,
     id: Number,
     weight: Number,
@@ -75,7 +75,7 @@ section {
   bottom: 5%;
   width: 100%;
   height: 30%;
-  top: 55%;
+  top: 45%;
   
 }
 
@@ -83,7 +83,7 @@ h1 {
   font-size: 1vw;
   color: #FFFFFF;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 0%;
 }
 .poke-types {
@@ -107,7 +107,7 @@ h1 {
 }
 
 img {
-  top: 10%;
+  top: 0%;
   left: 5%;
   height: 40%;
   position: absolute;
