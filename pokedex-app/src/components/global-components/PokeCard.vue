@@ -1,5 +1,5 @@
 <template>
-    <card-box :selectable="true">
+    <card-box :selectable="true" @click="pokecardClick(pokemon)">
         <div class="cardbox-slot-content">
             <img :src="pokemon.sprites.front_default"/>
             <div class="poke-info">
@@ -24,7 +24,12 @@ export default {
         pokemon: {
             type: Object
         }
+    },
+    methods: {
+    pokecardClick(pokemon) {
+      this.$router.push({path: '/pokeinfo/' + pokemon['id']});
     }
+  },
 }
 </script>
 <style scoped>

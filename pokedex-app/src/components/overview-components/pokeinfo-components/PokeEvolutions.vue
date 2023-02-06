@@ -1,9 +1,24 @@
 <template>
   <section>
     <h1>EVOLUTIE</h1>
-    <div class="evolutions-container"></div>
+    <div class="evolutions-container" v-if="pokemonChain">
+        <poke-card v-for="pokemon in pokemonChain" :key="pokemon.id" :pokemon="pokemon"></poke-card>
+    </div>
   </section>
 </template>
+
+<script>
+import PokeCard from '../../global-components/PokeCard.vue'
+export default {
+  components: { PokeCard },
+    props: {
+        pokemonChain: Array
+    },
+    mounted(){
+        
+    },
+}
+</script>
 
 <style scoped>
 section {

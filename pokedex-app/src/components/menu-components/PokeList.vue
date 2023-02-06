@@ -1,6 +1,6 @@
 <template>
   <section v-if="!pokemonStore.isFetching">
-    <poke-card v-for="pokemon in allPokemon" :key="pokemon['id']" :pokemon="pokemon" @click="pokecardClick(pokemon)"></poke-card>
+    <poke-card v-for="pokemon in allPokemon" :key="pokemon['id']" :pokemon="pokemon"></poke-card>
   </section>
   <section v-else>
     <div class="loading-indicator">
@@ -24,11 +24,7 @@ export default {
     allPokemon: Array,
   },
   watch: {},
-  methods: {
-    pokecardClick(pokemon) {
-      this.$router.push({path: '/pokeinfo/' + pokemon['id']});
-    }
-  },
+  
   mounted() {},
 };
 </script>

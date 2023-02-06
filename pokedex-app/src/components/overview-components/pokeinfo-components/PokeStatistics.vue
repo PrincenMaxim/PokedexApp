@@ -33,8 +33,6 @@ export default {
   props: {
     statistics: Array,
   },
-  mounted() {
-  },
 };
 </script>
 

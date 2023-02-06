@@ -1,14 +1,18 @@
 import { defineStore } from "pinia";
-import { fetchPokemon, fetchPokemonDetails } from '../services/PokemonService'
+import { fetchPokemon, fetchPokemonDetails, fetchPokemonSpecies, fetchPokemonEvolutionChain } from '../services/PokemonService'
 
 export const usePokemonStore = defineStore("PokemonStore", {
   state: () => {
     return {
       selectedPokemon: null,
       selectedPokemonDetails: null,
+      selectedSpecies: null,
+      selectedEvolutionChain: null,
       allPokemon: null,
       isFetching: false,
       isFetchingDetails: false,
+      isFetchingSpecies: false,
+      isFetchingEvoluton: false
     };
   },
   actions: {
@@ -42,6 +46,36 @@ export const usePokemonStore = defineStore("PokemonStore", {
         console.error(error);
       }
     },
+    async fetchPokemonSpecies() {
+      this.isFetchingSpecies = true;
+      try {
+        this.selectedSpecies = await fetchPokemonSpecies(
+          this.selectedPokemon["id"]
+        );
+        localStorage.setItem(
+          "selectedSpecies",
+          JSON.stringify(this.selectedSpecies)
+        );
+        this.isFetchingSpecies = false;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async fetchPokemonEvolutionChain() {
+      this.isFetchingDetails = true;
+      try {
+        this.selectedEvolutionChain = await fetchPokemonEvolutionChain(
+          this.getSelectedSpecies()['evolution_chain'].url
+        );
+        localStorage.setItem(
+          "selectedEvolutionChain",
+          JSON.stringify(this.selectedEvolutionChain)
+        );
+        this.isFetchingDetails = false;
+      } catch (error) {
+        console.error(error);
+      }
+    },
     setSelectedPokemon(pokemon) {
       this.selectedPokemon = pokemon;
     },
@@ -50,6 +84,12 @@ export const usePokemonStore = defineStore("PokemonStore", {
     },
     getSelectedPokemonDetails() {
       return this.selectedPokemonDetails;
+    },
+    getSelectedSpecies(){
+      return this.selectedSpecies;
+    },
+    getSelectedEvolutionChain(){
+      return this.selectedEvolutionChain;
     },
     getPokemonById(id) {
       if (this.allPokemon)

@@ -17,7 +17,7 @@
       </div>
       <div class="right-info-container" v-if="selectedPokemonDetails">
         <poke-statistics :statistics="selectedStatistics"></poke-statistics>
-        <poke-evolutions></poke-evolutions>
+        <poke-evolutions v-if="chainPokemonInfo" :pokemonChain="chainPokemonInfo"></poke-evolutions>
       </div>
     </div>
   </section>
@@ -37,10 +37,12 @@ export default {
       pokemonStore: usePokemonStore(),
       selectedPokemon: null,
       selectedPokemonDetails: null,
+      selectedEvolutionChain: null,
       isFetching: true,
       isFetchingDetails: true,
       primaryType: null,
       selectedStatistics: null,
+      chainPokemonInfo: null,
     };
   },
 
@@ -51,20 +53,30 @@ export default {
       );
       this.primaryType = this.selectedPokemon.types[0].type.name;
       this.pokemonStore.selectedPokemon = this.selectedPokemon;
-      console.log(this.pokemonStore.selectedPokemon);
       this.pokemonStore.fetchPokemonDetails().then(() => {
         this.selectedPokemonDetails =
           this.pokemonStore.getSelectedPokemonDetails();
         this.setStatistics();
       });
+      this.pokemonStore
+        .fetchPokemonSpecies()
+        .then(() => {
+          this.pokemonStore
+            .fetchPokemonEvolutionChain()         
+            .then(() => {
+              this.selectedEvolutionChain =
+                this.pokemonStore.getSelectedEvolutionChain();
+                this.parseEvolutionChain();
+            });
+        });
     },
     setStatistics() {
       let tempStatistics = [
         { name: "HP", value: null, id: "hp" },
         { name: "Attack", value: null, id: "attack" },
         { name: "Defense", value: null, id: "defense" },
-        { name: "Sp. Attack", value: null, id:"special-attack" },
-        { name: "Sp. Defense", value: null, id:"special-defense" },
+        { name: "Sp. Attack", value: null, id: "special-attack" },
+        { name: "Sp. Defense", value: null, id: "special-defense" },
         { name: "Speed", value: null, id: "speed" },
       ];
       let selectedStatistics = this.selectedPokemonDetails.stats;
@@ -77,8 +89,34 @@ export default {
         }
       });
       this.selectedStatistics = tempStatistics;
-      console.log(this.selectedStatistics);
     },
+    parseEvolutionChain(){
+      let tempEvolutions = [this.selectedEvolutionChain.chain.species];
+      if(this.selectedEvolutionChain.chain.evolves_to){
+        this.getEvolutions(this.selectedEvolutionChain.chain.evolves_to, tempEvolutions)
+      }
+      
+      let tempArray = [];
+      tempEvolutions.forEach(evo => {
+        const speciesURL = evo.url;
+        const substrings = speciesURL.split('/')
+        substrings.pop();
+        const id = substrings.pop();
+        const pokemon = this.pokemonStore.getPokemonById(parseInt(id));
+        if(pokemon){
+          tempArray.push(pokemon)
+        }
+        
+      })
+      this.chainPokemonInfo = tempArray;
+    },
+    getEvolutions(evolution, allEvolutions){
+      allEvolutions.push(evolution['0'].species);
+      if(evolution['0'].evolves_to.length > 0){
+        console.log(evolution['0'].evolves_to)
+        this.getEvolutions(evolution['0'].evolves_to, allEvolutions);
+      }
+    }
   },
   watch: {
     $route() {
