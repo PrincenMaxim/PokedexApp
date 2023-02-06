@@ -3,9 +3,9 @@
     <h1>INFO</h1>
     <div class="info-container">
       <card-box>
-        <ul>
-          <li>
-            <p class="parameter">Type</p>
+        <div class="content">
+          <div class="row">
+            <p class="parameter-name">Type</p>
             <div class="poke-types">
               <poke-type
                 v-for="type of types"
@@ -13,20 +13,20 @@
                 :type="type.type.name"
               ></poke-type>
             </div>
-          </li>
-          <li>
-            <p class="parameter">Nummer</p>
-            <p>{{ transformedId }}</p>
-          </li>
-          <li>
-            <p class="parameter">Gewicht</p>
-            <p>{{ transformedWeight }} kg</p>
-          </li>
-          <li>
-            <p class="parameter">Hoogte</p>
-            <p>{{ transformedHeight }}m</p>
-          </li>
-        </ul>
+          </div>
+          <div class="row">
+            <p class="parameter-name">Nummer</p>
+            <p class="parameter-value">{{ transformedId }}</p>
+          </div>
+          <div class="row">
+            <p class="parameter-name">Gewicht</p>
+            <p class="parameter-value">{{ transformedWeight }} kg</p>
+          </div>
+          <div class="row">
+            <p class="parameter-name">Hoogte</p>
+            <p class="parameter-value">{{ transformedHeight }}m</p>
+          </div>
+        </div>
       </card-box>
     </div>
   </section>
@@ -76,33 +76,40 @@ h1 {
   font-size: 1vw;
   color: #FFFFFF;
   position: absolute;
-  top: 63%;
+  top: 60%;
   left: 0%;
 }
 .poke-types {
   margin-top: 5%;
   margin-right: 0;
-  height: 80%;
+  height: fit-content;
   width: 40%;
   display: flex;
   flex-direction: row;
   justify-content: start;
+  position: absolute;
+  left: 37%;
 }
 
-ul {
+.content {
   display: flex;
   flex-direction: column;
+  padding: 10% 0 0 5%;
 }
 
-li {
-  list-style-type: none;
+.row {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  gap: 30%;
+  position: relative;
+  left: 0%;
+}
+.parameter-value{
+  position: absolute;
+  left: 40%;
 }
 
-.parameter{
+.parameter-name{
   color: #ACB2C1;
 }
 </style>
