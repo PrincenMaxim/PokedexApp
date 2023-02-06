@@ -141,7 +141,6 @@ img {
   right: 5%;
   bottom: 20%;
   position: absolute;
-  border: 2px solid red;
 }
 
 h1 {

@@ -34,7 +34,6 @@ export default {
     statistics: Array,
   },
   mounted() {
-    console.log(this.statistics);
   },
 };
 </script>
