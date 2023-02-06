@@ -5,7 +5,7 @@
       <card-box>
         <ul>
           <li>
-            <p>Type</p>
+            <p class="parameter">Type</p>
             <div class="poke-types">
               <poke-type
                 v-for="type of types"
@@ -15,15 +15,15 @@
             </div>
           </li>
           <li>
-            <p>Nummer</p>
-            <p>{{ transformedId }}</p>
+            <p class="parameter">Nummer</p>
+            <p>{{ id }}</p>
           </li>
           <li>
-            <p>Gewicht</p>
+            <p class="parameter">Gewicht</p>
             <p>{{ weight }} kg</p>
           </li>
           <li>
-            <p>Hoogte</p>
+            <p class="parameter">Hoogte</p>
             <p>{{ height }}m</p>
           </li>
         </ul>
@@ -68,22 +68,32 @@ section {
 }
 
 .info-container {
-  margin-top: -14%;
+  position: absolute;
+  top:65%;
   width: 100%;
   height: 50%;
 }
 
 h1 {
   font-size: 1vw;
+  color: #FFFFFF;
+  position: absolute;
+  top: 63%;
+  left: 0%;
 }
 .poke-types {
   margin-top: 5%;
   margin-right: 0;
-  height: 100%;
+  height: 80%;
   width: 40%;
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: start;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
 }
 
 li {
@@ -92,5 +102,9 @@ li {
   flex-direction: row;
   justify-content: flex-start;
   gap: 30%;
+}
+
+.parameter{
+  color: #ACB2C1;
 }
 </style>

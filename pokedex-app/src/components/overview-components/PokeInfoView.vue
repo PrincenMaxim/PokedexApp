@@ -5,7 +5,7 @@
       :style="{ backgroundColor: styleColor }"
       class="pokeinfo-container">
       <h1>{{ selectedPokemon["name"] }}</h1>
-      <div class="left-info-container">
+      <div class="left-info-container" v-if="selectedPokemonDetails">
         <img :src="selectedPokemon.sprites.front_default"/>
         <poke-info :id="selectedPokemonDetails.id" :types="selectedPokemonDetails.types" :height="selectedPokemonDetails.height" :weight="selectedPokemonDetails.weight"></poke-info>
       </div>
@@ -45,7 +45,7 @@ export default {
             this.selectedPokemonDetails = this.pokemonStore.getSelectedPokemonDetails();
         }
       )
-      console.log(this.selectedPokemonDetails)
+      
     }
   },
   watch: {
@@ -91,13 +91,16 @@ section {
 }
 
 img{
-    width: 100%;
+  top: 5%;
+  width: 100%;
+  position: absolute;
 }
 
 .left-info-container{
-    height: 80%;
+    height: 70%;
     width: 40%;
-    margin: 15% 5% 5% 10%
+    margin: 10% 5% 5% 10%;
+    position: relative;
 }
 
 h1 {
@@ -106,5 +109,6 @@ h1 {
   font-weight: 700;
   font-size: 3vw;
   letter-spacing: 0.01vw;
+  top: 10%;
 }
 </style>

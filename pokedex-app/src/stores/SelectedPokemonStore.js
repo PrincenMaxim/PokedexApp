@@ -1,5 +1,5 @@
-import axios from "axios";
 import { defineStore } from "pinia";
+import { fetchPokemon, fetchPokemonDetails } from '../services/PokemonService'
 
 export const usePokemonStore = defineStore("PokemonStore", {
   state: () => {
@@ -16,10 +16,7 @@ export const usePokemonStore = defineStore("PokemonStore", {
       this.isFetching = true;
       if (localStorage.getItem("allPokemon") === null) {
         try {
-          const response = await axios.get(
-            "https://stoplight.io/mocks/appwise-be/pokemon/57519009/pokemon"
-          );
-          this.allPokemon = response.data;
+          this.allPokemon = await fetchPokemon();
           localStorage.setItem("allPokemon", JSON.stringify(this.allPokemon));
           this.isFetching = false;
         } catch (error) {
@@ -33,10 +30,9 @@ export const usePokemonStore = defineStore("PokemonStore", {
     async fetchPokemonDetails() {
       this.isFetchingDetails = true;
       try {
-        const response = await axios.get(
-          "https://pokeapi.co/api/v2/pokemon/" + this.selectedPokemon["id"]
+        this.selectedPokemonDetails = await fetchPokemonDetails(
+          this.selectedPokemon["id"]
         );
-        this.selectedPokemonDetails = response.data;
         localStorage.setItem(
           "selectedPokemonDetails",
           JSON.stringify(this.selectedPokemonDetails)
