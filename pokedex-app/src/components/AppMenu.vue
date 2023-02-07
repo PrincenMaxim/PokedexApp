@@ -54,7 +54,6 @@ export default {
   computed: {
     listToShow(){
       const searchString = this.searchString;
-      console.log(searchString)
       let pokemonList = [];
       if(this.showList === 'favorite'){
         pokemonList = this.favoritePokemon;

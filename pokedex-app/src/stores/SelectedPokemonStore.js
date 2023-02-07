@@ -155,7 +155,7 @@ export const usePokemonStore = defineStore("PokemonStore", {
     },
     searchPokemon(input, pokemonArray){
       let result = null;
-      if(pokemonArray.length > 0){
+      if(pokemonArray.length > 0 && input.length > 0 && input !== ''){
         result = pokemonArray.filter(pokemon => pokemon.name.includes(input));
       }
       else 
