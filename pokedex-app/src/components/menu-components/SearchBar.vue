@@ -2,7 +2,7 @@
     <section>
         <div class="search-bar">
             <font-awesome-icon icon="search" style="font-size: 1.2vw;"></font-awesome-icon>
-            <input type="text" placeholder="Pokemon zoeken"/>
+            <input type="text" placeholder="Pokemon zoeken" @keyup="inputChanged" v-model="inputValue"/>
         </div>
         
     </section>
@@ -16,6 +16,17 @@ library.add(faSearch);
 export default {
     components: {
         FontAwesomeIcon
+    },
+    emits:['input-changed'],
+    data(){
+        return{
+            inputValue: null
+        }
+    },
+    methods: {
+        inputChanged(){
+            this.$emit('input-changed', this.inputValue);
+        }
     }
 }
 </script>

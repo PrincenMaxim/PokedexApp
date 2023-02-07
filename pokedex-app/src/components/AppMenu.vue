@@ -2,7 +2,7 @@
   <section class="menu-section">
     <!-- <div>Filter & Sort Buttons - C</div> -->
     <h1>Pokedex</h1>
-    <search-bar></search-bar>
+    <search-bar @input-changed="updatePokemon"></search-bar>
     <div class="pokebutton-container">
       <poke-button :colorFrom="'#46469C'" :colorTo="'#7E32E0'" :isActive="showList === 'team'" :pokemons="this.teamPokemon.length" @click="changeList('team')">
         <template #title> Mijn team </template></poke-button>
@@ -28,7 +28,8 @@ export default {
   data() {
     return {
       pokemonStore: usePokemonStore(),
-      showList: 'all'
+      showList: 'all',
+      searchString: ''
     }
   },
   methods: {
@@ -39,6 +40,9 @@ export default {
       else {
         this.showList = to;
       }
+    },
+    updatePokemon(searchString){
+      this.searchString = searchString;
     }
   },
   
@@ -49,16 +53,20 @@ export default {
   },
   computed: {
     listToShow(){
+      const searchString = this.searchString;
+      console.log(searchString)
+      let pokemonList = [];
       if(this.showList === 'favorite'){
-        return this.favoritePokemon;
+        pokemonList = this.favoritePokemon;
       }
       else if(this.showList === 'team'){
-        //add team prop
-        return this.teamPokemon;
+        pokemonList = this.teamPokemon;
       }
       else {
-        return this.allPokemon;
+        pokemonList = this.allPokemon;
       }
+      const finalPokemonList = this.pokemonStore.searchPokemon(searchString, pokemonList);
+      return finalPokemonList;
     }
   }
 

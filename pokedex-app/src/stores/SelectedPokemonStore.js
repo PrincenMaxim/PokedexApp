@@ -152,6 +152,15 @@ export const usePokemonStore = defineStore("PokemonStore", {
     },
     isPokemonTeam(pokemon) {
       return this.teamPokemon.some(p => p.id === pokemon.id);
+    },
+    searchPokemon(input, pokemonArray){
+      let result = null;
+      if(pokemonArray.length > 0){
+        result = pokemonArray.filter(pokemon => pokemon.name.includes(input));
+      }
+      else 
+        result = pokemonArray
+      return result;
     }
   },
 });
