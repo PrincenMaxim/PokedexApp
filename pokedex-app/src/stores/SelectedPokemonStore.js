@@ -163,6 +163,18 @@ export const usePokemonStore = defineStore("PokemonStore", {
       else 
         result = pokemonArray
       return result;
+    },
+    sortPokemon(pokemonArray, sortType) {
+      if (sortType === 'alphabetical') {
+        pokemonArray.sort((a, b) => {
+          return a.name.localeCompare(b.name);
+        });
+      } else if (sortType === 'numeric') {
+        pokemonArray.sort((a, b) => {
+          return a.id - b.id;
+        });
+      }
+      return pokemonArray;
     }
   },
 });

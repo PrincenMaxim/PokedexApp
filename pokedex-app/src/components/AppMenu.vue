@@ -1,6 +1,10 @@
 <template>
   <section class="menu-section">
-    <!-- <div>Filter & Sort Buttons - C</div> -->
+    <div class="sort-icon-container" @click="toggleSortingStyle">
+      <font-awesome-icon v-if="sortingStyle === 'numeric'" :icon="['fas', 'arrow-down-1-9']" style="font-size: 1.5vw;"></font-awesome-icon>
+      <font-awesome-icon v-if="sortingStyle === 'alphabetical'" :icon="['fas', 'arrow-down-a-z']"  style="font-size: 1.5vw;"></font-awesome-icon>
+
+    </div>
     <h1>Pokedex</h1>
     <search-bar @input-changed="updatePokemon"></search-bar>
     <div class="pokebutton-container">
@@ -18,18 +22,27 @@ import SearchBar from "./menu-components/SearchBar.vue";
 import PokeButton from "./menu-components/PokeButton.vue";
 import PokeList from './menu-components/PokeList.vue';
 import { usePokemonStore } from '@/stores/SelectedPokemonStore';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faArrowDown)
+
+
 
 export default {
   components: {
     SearchBar,
     PokeButton,
     PokeList,
+    FontAwesomeIcon
   },
   data() {
     return {
       pokemonStore: usePokemonStore(),
       showList: 'all',
-      searchString: ''
+      searchString: '',
+      sortingStyle: 'numeric'
     }
   },
   methods: {
@@ -43,6 +56,12 @@ export default {
     },
     updatePokemon(searchString){
       this.searchString = searchString;
+    },
+    toggleSortingStyle(){
+      if(this.sortingStyle === 'numeric'){
+        this.sortingStyle = 'alphabetical';
+      }
+      else this.sortingStyle = 'numeric';
     }
   },
   
@@ -64,7 +83,8 @@ export default {
       else {
         pokemonList = this.allPokemon;
       }
-      const finalPokemonList = this.pokemonStore.searchPokemon(searchString, pokemonList);
+      const tempPokemonList = this.pokemonStore.searchPokemon(searchString, pokemonList);
+      const finalPokemonList = this.pokemonStore.sortPokemon(tempPokemonList, this.sortingStyle);
       return finalPokemonList;
     }
   }
@@ -100,6 +120,17 @@ section h1 {
   max-width: 100%;
   top: 30%;
   margin: 0 5% 0 5%;
+}
+
+.sort-icon-container{
+  top: 2%;
+  right: 4%;
+  position: absolute;
+  cursor: pointer;
+}
+
+.fa-arrow-down-1-9 {
+  color: #1F2029;
 }
 
 
